@@ -3,29 +3,79 @@
 }
 
 @section Styles{
-    <link href='/lib/fullcalendar/main.css' rel='stylesheet' />
-}
+    <link href="https://cdn.jsdelivr.net/npm/fontawesome-free@5.15.4/css/fontawesome.min.css" integrity="sha384-jLKHWM3JRmfMU0A5x5AkjWkw/EYfGUAGagvnfryNV3F9VqM98XiIH7VBGVoxVSc7" crossorigin="anonymous">
+    <link href='/lib/fullcalendar/core/main.css' rel='stylesheet'/>
+    <link href='/lib/fullcalendar/daygrid/main.css' rel='stylesheet'/>
+    <link href='/lib/fullcalendar/timegrid/main.css' rel='stylesheet'/>
+    
+    <link href="~/lib/fullcalendar/bootstrap/main.css"/>
+    
 
+}
 <div id="calendar">
     
+    </div>
+
     
-
-</div>
-
-
 
 @section Scripts
 {
-    <script src='/lib/fullcalendar/main.js'></script>
-
-    
-    
+    <<script src='~/lib/fullcalendar/core/main.js'></script>
+    <script src="/lib/fullcalendar/daygrid/main.js"></script>
+    <script src="~/lib/fullcalendar/timegrid/main.js"></script>
+    <script src="~/lib/fullcalendar/bootstrap/main.js"></script>
+   <script  src="~/lib/fullcalendar/core/locales/tr.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             var calendarEl = document.getElementById('calendar');
+
             var calendar = new FullCalendar.Calendar(calendarEl, {
-                initialView: 'dayGridMonth'
+                plugins: ['dayGrid', 'timeGrid', 'bootstrap'],
+                themeSystem: 'bootstrap',
+                locale: 'tr',
+                header: {
+                    left: 'prev, next, today, getDate',
+                    center: 'title',
+                    right: 'dayGridMonth, timeGridWeek, timeGridDay, timeGridForFourDay'
+                },
+                defaultView: 'dayGridMonth',
+                weekends: true,
+                allDaySlot: false,
+                firstDay:1,
+                titleFormat: {
+                    year:'numeric',
+                    month:'long',
+                    day:'numeric'
+                },titleRangeSeparator: '  / ',
+                columnHeaderFormat: {
+                    //month: 'numeric',
+                    weekday:'long'
+                    //day:'numeric'
+                },
+                views: {
+                    timeGridForFourDay: {
+                        type:'timeGrid',
+                       // dayCount:4,
+                        duration:{days: 4},
+                        buttonText: '4 Gün'
+                    },
+                    customButtons: {
+                        getDate: {
+                            text: 'date',
+                            click:function() {
+                                var date = new Date();
+                                alert(date);
+                            }
+                        },
+                        foother: {
+                            left:'4 Gün',
+                            center: 'title',
+                            right:'timeGridForFourDay'
+                        }
+                    }
+                }
             });
+
             calendar.render();
         });
 
