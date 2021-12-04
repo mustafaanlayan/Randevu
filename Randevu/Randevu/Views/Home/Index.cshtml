@@ -7,6 +7,7 @@
     <link href='/lib/fullcalendar/core/main.css' rel='stylesheet'/>
     <link href='/lib/fullcalendar/daygrid/main.css' rel='stylesheet'/>
     <link href='/lib/fullcalendar/timegrid/main.css' rel='stylesheet'/>
+    <link href='/lib/fullcalendar/list/main.css' rel='stylesheet'/>
     
     <link href="~/lib/fullcalendar/bootstrap/main.css"/>
     
@@ -23,6 +24,7 @@
     <<script src='~/lib/fullcalendar/core/main.js'></script>
     <script src="/lib/fullcalendar/daygrid/main.js"></script>
     <script src="~/lib/fullcalendar/timegrid/main.js"></script>
+    <script src="~/lib/fullcalendar/list/main.js"></script>
     <script src="~/lib/fullcalendar/bootstrap/main.js"></script>
    <script  src="~/lib/fullcalendar/core/locales/tr.js"></script>
     <script>
@@ -30,23 +32,41 @@
             var calendarEl = document.getElementById('calendar');
 
             var calendar = new FullCalendar.Calendar(calendarEl, {
-                plugins: ['dayGrid', 'timeGrid', 'bootstrap'],
+                plugins: ['dayGrid', 'timeGrid','list', 'bootstrap'],
                 themeSystem: 'bootstrap',
                 bootstrapFontAwesome: {
                     dayGridMonth:'calendar',
                     prev:'fa-chevron-circle-left',
-                    next:'fa-chevron-circle-right'
+                    next:'fa-chevron-circle-right',
+                    listWeek:'fa-list'
                 },
                 locale: 'tr',
                 header: {
                     left: 'prev, next, today, getDate',
                     center: 'title',
-                    right: 'dayGridMonth, timeGridWeek, timeGridDay, timeGridForFourDay'
+                    right: 'dayGridMonth, timeGridWeek, timeGridDay, timeGridForFourDay, listWeek'
                 },
                 footer: {
                     left:'prevYear',
                     right:'nextYear'
                 },
+                //slotDuration:'00:15:00',
+               // slotLabelInterval:'00:15:00',
+                slotLabelFormat: {
+                    hour:'2-digit',
+                    minute:'2-digit'
+                },
+                fixedWeekCount:true,
+                showNonCurrentDates:false,
+                //scroolTime:'08:00:00',
+                minTime:'07:00:00',
+                maxTime:'21:00:00',
+                //handleWindowResize:true,
+                //windowResizeDelay:100,
+                //windowResize:function (view) {
+                    //alert('Takvim Yeniden Boyutlandırıldı.');
+                //},
+                contentHeight:430,
                 defaultView: 'dayGridMonth',
                 weekends: true,
                 allDaySlot: false,
