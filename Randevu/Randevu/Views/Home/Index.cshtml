@@ -3,7 +3,7 @@
 }
 
 @section Styles{
-    <link href="https://cdn.jsdelivr.net/npm/fontawesome-free@5.15.4/css/fontawesome.min.css" integrity="sha384-jLKHWM3JRmfMU0A5x5AkjWkw/EYfGUAGagvnfryNV3F9VqM98XiIH7VBGVoxVSc7" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha256-eZrrJcwDc/3uDhsdt61sL2oOBY362qM3lon1gyExkL0=" crossorigin="anonymous" />
     <link href='/lib/fullcalendar/core/main.css' rel='stylesheet'/>
     <link href='/lib/fullcalendar/daygrid/main.css' rel='stylesheet'/>
     <link href='/lib/fullcalendar/timegrid/main.css' rel='stylesheet'/>
@@ -32,11 +32,20 @@
             var calendar = new FullCalendar.Calendar(calendarEl, {
                 plugins: ['dayGrid', 'timeGrid', 'bootstrap'],
                 themeSystem: 'bootstrap',
+                bootstrapFontAwesome: {
+                    dayGridMonth:'calendar',
+                    prev:'fa-chevron-circle-left',
+                    next:'fa-chevron-circle-right'
+                },
                 locale: 'tr',
                 header: {
                     left: 'prev, next, today, getDate',
                     center: 'title',
                     right: 'dayGridMonth, timeGridWeek, timeGridDay, timeGridForFourDay'
+                },
+                footer: {
+                    left:'prevYear',
+                    right:'nextYear'
                 },
                 defaultView: 'dayGridMonth',
                 weekends: true,
@@ -66,12 +75,8 @@
                                 var date = new Date();
                                 alert(date);
                             }
-                        },
-                        foother: {
-                            left:'4 Gün',
-                            center: 'title',
-                            right:'timeGridForFourDay'
                         }
+                       
                     }
                 }
             });
