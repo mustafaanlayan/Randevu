@@ -13,9 +13,27 @@
     
 
 }
-<div id="calendar">
-    
+
+<div class="row">
+    <div class="col-md-2">
+        <div id="otherEvents">
+            <p><strong>Sürüklenebilir Etkinlikler </strong></p>
+            <div class="fc-event">1.Etkinlik</div><br/>
+            <div class="fc-event">2.Etkinlik</div><br/>
+        </div>
+
     </div>
+
+    <div class="col-md-10">
+        <div id="calendar">
+    
+        </div>
+
+    </div>
+    
+</div>
+
+
 
     
 
@@ -32,6 +50,20 @@
         document.addEventListener('DOMContentLoaded',
             function() {
                 var calendarEl = document.getElementById('calendar');
+                var draggableEl = document.getElementById('otherEvents');
+
+                var Draggable = FullCalendarInteraction.Draggable;
+
+                new Draggable(draggableEl,
+                    {
+                        itemSelector:'.fc-event',
+                        eventData: function(eventEl) {
+                            return {
+                                title: eventEl.innerText,
+                                duration: '01:30'
+                            };
+                        }
+                    });
 
                 var calendar = new FullCalendar.Calendar(calendarEl,
                     {
@@ -94,11 +126,11 @@
                             },
                             customButtons: {
                                 addEvent: {
-                                    text:'Ekle',
-                                    click:function() {
-                                        var newEvent= {
-                                            id:'a',
-                                            title:'Yeni Event',
+                                    text: 'Ekle',
+                                    click: function() {
+                                        var newEvent = {
+                                            id: 'a',
+                                            title: 'Yeni Event',
                                             start: '2021-12-06T15:00:00.000Z',
                                             end: '2021-12-06T15:30:00.000Z'
                                         }
@@ -106,8 +138,19 @@
                                     }
                                 }
                             }
-                            
+
                         },
+                        //eventColor:"red",
+                        eventBackgroundColor: "yellow",
+                        eventBorderColor: "red",
+                        eventTextColor: "black",
+                        eventTimeFornat: {
+                            hour: "2-digit",
+                            minute: "2-digit"
+                            // second:""
+                        },
+                        // displayEventTime:false,
+                        eventOrder: "title",
                         timeZone: 'UTC',
                         events: [
                             {
@@ -119,14 +162,49 @@
                             {
                                 id: 'y',
                                 title: 'Merhaba y',
-                                start: '2021-12-06T11:00:00.000Z',
+                                start: '2021-12-06T15:00:00.000Z',
                                 end: '2021-12-06T12:30:00.000Z'
                             }
                         ],
+                        eventRender: function(info) {
+                            console.log(info.event.title);
+                        },
                         selectable: true,
+                        droppable:true,
                         select: function(selectionInfo) {
                             console.log(selectionInfo);
-                        }
+                        },
+                        eventClick: function(info) {
+                            alert(info.event.title);
+                        },
+                        //eventMouseEnter: function(onMouse) {
+                        // alert(onMouse.event.start);
+                        //},
+                        //eventMouseLeave: function(onLeave) {
+                        //   alert(onLeave.event.id);
+                        //}
+                        //eventOverlap: function(stillEvent, movingEvent) {
+                           // return stillEvent.allDay && movingEvent.allDay;
+                       // },
+                    //    eventConstraint: {
+                     //       startTime:'09:00',
+                        //    endTme:'19:00',
+                        //    daysOfWeek:[1,2,3,4,5,6,7]
+                       // },
+                        //eventAllow: function(dropInfoEvent,draggedEvent) {
+                        //    console.log(dropInfoEvent.start);
+                           // return false;
+                       // },
+
+                        eventDragStart: function(info) {
+                            console.log('Başladı');
+                        },
+                        eventDragStop: function(info) {
+                            console.log('Bitti');
+                        },
+                        editable: true
+                        //eventDragMinDistance:5
+                        
                     });
                 calendar.render();
                 var events = calendar.getEvents();
