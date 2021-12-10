@@ -18,8 +18,8 @@
     <div class="col-md-2">
         <div id="otherEvents">
             <p><strong>Sürüklenebilir Etkinlikler </strong></p>
-            <div class="fc-event">1.Etkinlik</div><br/>
-            <div class="fc-event">2.Etkinlik</div><br/>
+            <div class="fc-event" id="isValid">1.Etkinlik</div><br/>
+            <div class="fc-event" id="isNotValid">2.Etkinlik</div><br/>
         </div>
 
     </div>
@@ -202,9 +202,18 @@
                         eventDragStop: function(info) {
                             console.log('Bitti');
                         },
-                        editable: true
+                        editable: true,
                         //eventDragMinDistance:5
-                        
+                        drop: function(dropInfo) {
+                            console.log('drop edildi');
+                        },
+                        eventReceive: function(info) {
+                            console.log('Receive edildi');
+                        },
+                        eventLeave: function(info) {
+                            console.log('Leave edildi');
+                        },
+                        dropAccept:'.fc-event'
                     });
                 calendar.render();
                 var events = calendar.getEvents();
