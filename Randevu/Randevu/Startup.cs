@@ -40,6 +40,16 @@ namespace Randevu
                      options.Password.RequireLowercase = false;
                  })
                 .AddEntityFrameworkStores<ApplicationDbContext>().AddDefaultTokenProviders();
+             services.ConfigureApplicationCookie(options =>
+             {
+                 options.LoginPath = "/Account/Login";
+                 options.LogoutPath = "/Account/Logout";
+                 options.AccessDeniedPath = "/Account/Denied";
+                 options.Cookie.Name = "Randevu.Cookie";
+                 options.SlidingExpiration = true;
+             });
+
+
             services.AddControllersWithViews();
             services.AddRazorPages().AddRazorRuntimeCompilation();
         }

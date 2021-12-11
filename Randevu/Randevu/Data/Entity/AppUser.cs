@@ -8,6 +8,7 @@ namespace Randevu.Data.Entity
 {
     public class AppUser:IdentityUser
     {
+        public bool Personel;
         public bool IsEmployee { get; set; }
         public string Name { get; set; }
         public string Surname { get; set; }
