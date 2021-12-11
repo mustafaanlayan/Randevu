@@ -12,6 +12,7 @@ namespace Randevu.Data.Entity
         public string Name { get; set; }
         public string Surname { get; set; }
 
+        public string Color { get; set; }
         public List<Appoitment> Appoitments { get; set; }
     }
 }

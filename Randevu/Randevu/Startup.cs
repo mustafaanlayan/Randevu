@@ -11,6 +11,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Randevu.Data;
+using Randevu.Data.Entity;
 
 namespace Randevu
 {
@@ -28,8 +29,17 @@ namespace Randevu
         {
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
-             services.AddIdentityCore<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
-                .AddEntityFrameworkStores<ApplicationDbContext>();
+             services.AddIdentity<AppUser, AppRole>(options =>
+                 {
+                     options.User.RequireUniqueEmail = true;
+                     options.SignIn.RequireConfirmedAccount = false;
+                     options.SignIn.RequireConfirmedPhoneNumber = false;
+                     options.Password.RequireDigit = false;
+                     options.Password.RequiredLength = 6;
+                     options.Password.RequireLowercase = false;
+                     options.Password.RequireLowercase = false;
+                 })
+                .AddEntityFrameworkStores<ApplicationDbContext>().AddDefaultTokenProviders();
             services.AddControllersWithViews();
             services.AddRazorPages().AddRazorRuntimeCompilation();
         }
