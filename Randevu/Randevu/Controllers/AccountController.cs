@@ -56,7 +56,7 @@ namespace Randevu.Controllers
                 }
 
                 _userManager.AddToRoleAsync(user, model.Personel ? "Personel" : "Secretary").Wait();
-                return View();
+                return RedirectToAction("Index","Home");
             }
 
             return View("Error");
